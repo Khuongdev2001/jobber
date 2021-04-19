@@ -64,6 +64,15 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => 'ftpupload.net',
+            'username' => 'epiz_28326868',
+            'password' => 'rj0ihpasVgRPg',
+            'port' => 21,
+            'root' => env("FTP_ROOT"),
+        ],
+
     ],
 
     /*

@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCvsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('cvs', function (Blueprint $table) {
+            $table->id("Cv_ID");
+            $table->text("Cv_Title")->nullable();
+            $table->unsignedBigInteger("Candidate_ID");
+            $table->foreign("Candidate_ID")->references("Candidate_ID")->on("candidates")->onDelete("cascade");
+            $table->string("File", 255);
+            $table->boolean("Is_Default")->default(false)->nullable();
+            $table->timestamp("Cv_Created_At")->nullable();
+            $table->timestamp("Cv_Updated_At")->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('cvs');
+    }
+}

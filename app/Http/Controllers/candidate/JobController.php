@@ -12,6 +12,10 @@ use App\Model\ApplyJob;
 
 class JobController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(["CheckLoginCandidate"])->only(["jobSave", "editJobSave", "applyJob"]);
+    }
     public function info($slug)
     {
         $job = Job::getJobBySlugModel($slug);
@@ -25,7 +29,7 @@ class JobController extends Controller
         $checkApply = ApplyJob::where([["Job_ID", $job->Job_ID], ["Candidate_ID", $Candidate_ID]])->count();
         // param1 specialize và param2 not id
         $jobSames = Job::getJobsSameBySpecialize($job->Specialize_ID, $job->Job_ID);
-        return view("candidate.job.info", compact("setSearchMenu", "job", "jobSames", "check","checkApply"));
+        return view("candidate.job.info", compact("setSearchMenu", "job", "jobSames", "check", "checkApply"));
     }
 
     /**

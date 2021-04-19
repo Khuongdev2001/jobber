@@ -40,30 +40,35 @@ class UserSeeder extends Seeder
         //     ]
         // ]);
 
-        User::insert([
-            [
-                "User_Email" => "nhatuyendung1@gmail.com",
-                "User_Password" => Hash::make("Khuongthuy2001"),
-                "Level" => 2,
-                "Is_Block" => 0,
-                "Fullname" => "Nhà tuyển dụng 1",
-                "User_Created_At" => time()
-            ],
-            [
-                "User_Email" => "nhatuyendung2@gmail.com",
-                "User_Password" => Hash::make("Khuongthuy2001"),
-                "Level" => 2,
-                "Is_Block" => 0,
-                "Fullname" => "Nhà Tuyển dụng 2",
-                "User_Created_At" => time()
-            ],  [
-                "User_Email" => "nhatuyendung3@gmail.com",
-                "User_Password" => Hash::make("Khuongthuy2001"),
-                "Level" => 2,
-                "Is_Block" => 0,
-                "Fullname" => "Nhà Tuyển Dụng 3",
-                "User_Created_At" => time()
-            ]
+        // User::insert([
+        //     [
+        //         "User_Email" => "nhatuyendung1@gmail.com",
+        //         "User_Password" => Hash::make("Khuongthuy2001"),
+        //         "Level" => 2,
+        //         "Is_Block" => 0,
+        //         "Fullname" => "Nhà tuyển dụng 1",
+        //         "User_Created_At" => time()
+        //     ],
+        //     [
+        //         "User_Email" => "nhatuyendung2@gmail.com",
+        //         "User_Password" => Hash::make("Khuongthuy2001"),
+        //         "Level" => 2,
+        //         "Is_Block" => 0,
+        //         "Fullname" => "Nhà Tuyển dụng 2",
+        //         "User_Created_At" => time()
+        //     ],  [
+        //         "User_Email" => "nhatuyendung3@gmail.com",
+        //         "User_Password" => Hash::make("Khuongthuy2001"),
+        //         "Level" => 2,
+        //         "Is_Block" => 0,
+        //         "Fullname" => "Nhà Tuyển Dụng 3",
+        //         "User_Created_At" => time()
+        //     ]
+        // ]);
+        User::create([
+            "User_Email" => "khuongmy1@gmail.com",
+            "User_Password" => Hash::make("Khuongthuy2001"),
+            "Level" => 6
         ]);
     }
 }

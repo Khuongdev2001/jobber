@@ -40,7 +40,8 @@
 		preview_mini: "#modal-upload-avatar .preview_avatar_mini",
 		input: ".profile-admin #upload-file",
         url_post:"{{ route('admin.user.admin.upload.image',['id'=>$user->User_ID]) }}",
-        _token:"{{ csrf_token() }}"
+        _token:"{{ csrf_token() }}",
+        ajax:true
 	});
     </script>
 @endsection()

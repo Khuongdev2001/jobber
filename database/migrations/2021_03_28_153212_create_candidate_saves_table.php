@@ -17,11 +17,11 @@ class CreateCandidateSavesTable extends Migration
             $table->id("ID");
             $table->unsignedBigInteger("Candidate_ID");
             $table->foreign("Candidate_ID")->references("Candidate_ID")->on("candidates")->onDelete("cascade");
-            $table->unsignedBigInteger("Job_ID");
-            $table->foreign("Job_ID")->references("Job_ID")->on("jobs")->onDelete("cascade");
+            $table->unsignedBigInteger("Employer_ID");
+            $table->foreign("Employer_ID")->references("Employer_ID")->on("employers")->onDelete("cascade");
             $table->integer("Status")->nullable();
-            $table->string("Created_At",255)->nullable();
-            $table->string("Updated_At",255)->nullable();
+            $table->timestamp("Created_At")->nullable();
+            $table->timestamp("Updated_At")->nullable();
         });
     }
 

@@ -14,7 +14,7 @@ class EmployerSeeder extends Seeder
     {
         Employer::insert([
             [
-                "User_ID" => 17,
+                "User_ID" => 20,
                 "Regency" => 1,
                 "Company_Name" => "Pi Tech",
                 "Company_Phone" => "039418273",
@@ -28,7 +28,7 @@ class EmployerSeeder extends Seeder
                 "Company_Description" => "Đây là tên của tôi",
             ], 
             [
-                "User_ID" => 18,
+                "User_ID" => 21,
                 "Regency" => 1,
                 "Company_Name" => "Pi Tech",
                 "Company_Phone" => "039418273",
@@ -42,7 +42,7 @@ class EmployerSeeder extends Seeder
                 "Company_Description" => "Đây là tên của tôi",
             ], 
             [
-                "User_ID" => 19,
+                "User_ID" => 22,
                 "Regency" => 1,
                 "Company_Name" => "Pi Tech",
                 "Company_Phone" => "039418273",

@@ -20,8 +20,8 @@ class CreateApplyJobsTable extends Migration
             $table->integer("Apply_Status")->nullable();
             $table->unsignedBigInteger("Candidate_ID");
             $table->foreign("Candidate_ID")->references("Candidate_ID")->on("candidates")->onDelete("cascade");
-            $table->string("Created_At",255)->nullable();
-            $table->string("Updated_At",255)->nullable();
+            $table->timestamp("Created_At")->nullable();
+            $table->timestamp("Updated_At")->nullable();
         });
     }
 

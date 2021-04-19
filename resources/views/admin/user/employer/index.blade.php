@@ -47,7 +47,7 @@
         return false;
     })
 
-    actionAll("{{route('admin.user.candidate.delete')}}","{{ route('admin.user.candidate') }}");
+    actionAll("{{route('admin.user.employer.delete')}}","{{ route('admin.user.employer') }}",{title:"Thông báo",text:"Bạn muốn xóa nhà tuyển dụng"});
 
     </script>
 @endsection()

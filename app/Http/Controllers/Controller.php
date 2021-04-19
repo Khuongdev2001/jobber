@@ -21,4 +21,5 @@ class Controller extends BaseController
             'errors' => $errors
         ], $code);
     }
+    
 }

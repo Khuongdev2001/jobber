@@ -69,15 +69,21 @@ function crop_image(object) {
             reader.readAsDataURL(blob);
             reader.onloadend = function() {
                 var base64data = reader.result;
-                $.post(object.url_post, { thumbnail: base64data, _token: object._token }, function(data) {
-                    if (!data.status) {
-                        error_noti({ title: "Thông báo", message: data.message })
-                        return;
-                    }
-                    success_noti({ title: "Thông báo", message: data.message })
-                    $(object.producted).attr("src", data.data.thumbnail);
-                    $(object.model_preview).modal('hide');
-                });
+                if (object.ajax) {
+                    $.post(object.url_post, { thumbnail: base64data, _token: object._token }, function(data) {
+                        if (!data.status) {
+                            error_noti({ title: "Thông báo", message: data.message })
+                            return;
+                        }
+                        success_noti({ title: "Thông báo", message: data.message })
+                        $(object.producted).attr("src", data.data.thumbnail);
+                        $(object.model_preview).modal('hide');
+                    });
+                    return;
+                }
+                $(".hidden_file").val(base64data);
+                $(object.producted).attr("src", base64data);
+                $(object.model_preview).modal('hide');
             };
         });
     });

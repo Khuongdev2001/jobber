@@ -17,8 +17,8 @@ class CreateSpecializesTable extends Migration
             $table->id("Specialize_ID");
             $table->string("Name", 255);
             $table->string("Code", 255);
-            $table->string("Specialize_Created_At", 255)->nullable();
-            $table->string("Specialize_Updated_At", 255)->nullable();
+            $table->timestamp("Specialize_Created_At")->nullable();
+            $table->timestamp("Specialize_Updated_At")->nullable();
         });
     }
 

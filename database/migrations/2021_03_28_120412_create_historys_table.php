@@ -15,6 +15,8 @@ class CreateHistorysTable extends Migration
     {
         Schema::create('historys', function (Blueprint $table) {
             $table->id("History_ID");
+            $table->unsignedBigInteger("User_ID");
+            $table->foreign("User_ID")->references("User_ID")->on("users")->onDelete("cascade");
             $table->integer("History_Type");
             $table->text("History_Content");
             $table->string("History_Created_At")->nullable();

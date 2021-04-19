@@ -28,6 +28,7 @@ class CreatePostsTable extends Migration
             $table->text("Post_Content", 255);
             $table->boolean("Is_Highlight")->default(false)->nullable();
             $table->boolean("Is_New")->default(false)->nullable();
+            $table->string("Post_Status", 40)->nullable();
             $table->string("Post_Created_At", 255)->nullable();
             $table->string("Post_Updated_At", 255)->nullable();
         });

@@ -207,9 +207,9 @@
                                         <h6 class="mb-0">Giấy phép kinh doanh: </h6>
                                     </div>
                                     <div class="col-sm-8">
+                                        <input type="button" class="btn-hero btn-info-hero me-2" value="Xem giấy phép" />
                                         @if(!$user->Company_Is_Confirm)
-                                            <input type="button" class="btn-hero btn-info-hero me-2" value="Xem giấy phép" />
-                                            <a href="" class="btn-hero btn-success-hero" value="Duyệt"></a>
+                                            <a href="{{ route("admin.user.employer.confirm",$user->Employer_ID) }}" class="btn-hero btn-warning-hero">Duyệt</a>
                                         @else
                                             <input type="button" class="btn-hero btn-success-hero" value="Đã duyệt" />
                                         @endif

@@ -20,6 +20,7 @@ class CreateCatPostsTable extends Migration
             $table->string("Cat_Title",255);
             $table->string("Cat_Slug", 255);
             $table->unsignedBigInteger("Cat_Parent")->default(0);
+            $table->boolean("Is_Menu")->nullable()->default(false);
             $table->string("Cat_Created_At",255)->nullable();
             $table->string("Cat_Updated_At",255)->nullable();
         });

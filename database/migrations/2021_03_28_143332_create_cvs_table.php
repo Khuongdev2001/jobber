@@ -15,11 +15,13 @@ class CreateCvsTable extends Migration
     {
         Schema::create('cvs', function (Blueprint $table) {
             $table->id("Cv_ID");
+            $table->text("Cv_Title")->nullable();
             $table->unsignedBigInteger("Candidate_ID");
             $table->foreign("Candidate_ID")->references("Candidate_ID")->on("candidates")->onDelete("cascade");
             $table->string("File", 255);
             $table->boolean("Is_Default")->default(false)->nullable();
-            $table->string("Cv_Updated_At", 255);
+            $table->timestamp("Cv_Created_At")->nullable();
+            $table->timestamp("Cv_Updated_At")->nullable();
         });
     }
 

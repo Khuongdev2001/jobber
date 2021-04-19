@@ -271,10 +271,10 @@ NOTE: This file contains all scripts for the actual Template.
     POTENZA.datetimepickers = function() {
         if ($('.datetimepickers').exists()) {
             $('#datetimepicker-01, #datetimepicker-02').datetimepicker({
-                format: 'L'
+                format: 'YYYY-MM-DD'
             });
             $('#datetimepicker-03, #datetimepicker-04').datetimepicker({
-                format: 'LT'
+                format: 'YYYY-MM-DD'
             });
         }
     };

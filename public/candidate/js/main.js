@@ -13,78 +13,16 @@
     var newproducts = $("#new-products");
     newproducts.owlCarousel({ autoplay: true, nav: true, autoplayHoverPause: true, smartSpeed: 350, dots: false, margin: 30, loop: true, navText: ['<i class="lni-chevron-left"></i>', '<i class="lni-chevron-right"></i>'], responsiveClass: true, responsive: { 0: { items: 1, }, 575: { items: 2, }, 991: { items: 3, } } });
 
-    $(document).on("click", "#btn-open-seach-advanced", function() {
-        $(this).attr("id", "btn-close-seach-advanced");
-        $(this).text("Đóng tìm kiếm nâng cao")
-        $(".job-search-form .seach-adanced").append('<div class="row"><div class="col-md-3"><div class="form-group"><div class="search-category-container"><label class="styled-select"><select> <option value="none">Mức lương</option><option value="none">New York</option><option value="none">California</option><option value="none">Washington</option><option value="none">Birmingham</option><option value="none">Chicago</option><option value="none">Phoenix</option></select></label></div><i class="fas fa-money-bill"></i></div></div><div class="col-md-3"><div class="form-group"><div class="search-category-container"><label class="styled-select"><select><option value="none">Kinh nghiệm</option></select></label></div><i class="fas fa-briefcase"></i></div></div><div class="col-md-3"><div class="form-group"><div class="search-category-container"><label class="styled-select"><select><option value="none">Loại hình</option><option value="none">New York</option><option value="none">California</option></select></label></div><i class = "far fa-clock"></i></div></div><div class = "col-md-3" ><div class = "form-group" ><div class = "search-category-container" ><label class="styled-select"><select><option value ="none"> Lĩnh vực </option> <option value = "none"> New York </option><option value = "none"> Phoenix </option></select></label></div> <i class = "far fa-building" ></i></div></div></div>')
-    })
-
-    $(document).on("click", "#btn-close-seach-advanced", function() {
-        $(this).attr("id", "btn-open-seach-advanced");
-        $(this).text("Chọn tìm kiếm nâng cao")
-        $(".job-search-form .seach-adanced").empty();
-    })
-
 
 })(jQuery);
 
-// crop avatar 
-crop_image({
-    id_preview: "preview_avatar",
-    model_preview: "#model-upload-avatar",
-    btn_drop: "#crop_avatar",
-    producted: ".box-avatar img",
-    preview_mini: ".preview_avatar_mini",
-    input: "#upload-avatar",
-});
-// crop cover
-crop_image({
-    id_preview: "preview_cover",
-    model_preview: "#model-upload-cover",
-    btn_drop: "#crop_cover",
-    producted: ".box-cover-imgage img",
-    preview_mini: ".preview_cover_mini",
-    input: "#upload-cover",
-    width: 720,
-    height: 200,
-    ratio: 2.225
-});
 
-$("#btn-upload-cv").change(function(e) {
-    $("#model-upload-cv .box-upload-cv #btn-preview-cv").remove();
-    if (e.target.files[0].type.indexOf("application/pdf") != -1) {
-        let url = URL.createObjectURL(e.target.files[0]);
-        $("#model-upload-cv .box-upload-cv").append('<a href="' + url + '" id="btn-preview-cv" target="_black">Xem trước</a>');
-    }
-})
-
-$(".list-cv .box-option .btn-delete-cv").click(function(e) {
-    Swal.fire({
-        title: 'Xóa CV',
-        text: "Bạn có muốn xóa cv không!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Xóa'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-                'Hoàn thành!',
-                'Cv đã được xóa',
-                'success'
-            )
-        }
-    })
-    return false;
-})
-
-$(function() {
-    $("img.lazy").lazyload({});
-    $('img.lazy').on('appear', function() {
-        console.log(this)
-    });
-});
+// $(function() {
+//     $("img.lazy").lazyload({});
+//     $('img.lazy').on('appear', function() {
+//         console.log(this)
+//     });
+// });
 
 // btn open model search 
 
@@ -92,3 +30,22 @@ $(".btn-open-search-post").click(function() {
     $(".top-search-post").toggleClass("active");
     return false;
 })
+
+function addLoading() {
+    $("body").append('<div class="box-loading"><div class="dialog"></div><div class="spinner-border text-primary" role="status"><span class="visually-hidden"></span></div></div>')
+}
+
+function removeLoading() {
+    $("body .box-loading").remove();
+}
+
+
+function strLimit(str, end, padding = "....") {
+    if (str.length < end)
+        return str;
+    return str.slice(0, end) + padding;
+}
+
+function currencyFormat(number) {
+    return Intl.NumberFormat("de-DE").format(number) + " VNĐ";
+}

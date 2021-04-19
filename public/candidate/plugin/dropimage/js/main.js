@@ -6,6 +6,10 @@
  *  producted
  *  preview_mini
  *  input
+ *  ratio
+ *  ajax
+ *  _token 
+ *  producted
  */
 
 function crop_image(object) {
@@ -39,6 +43,8 @@ function crop_image(object) {
     });
 
     $(object.btn_drop).click(function() {
+        // loading
+        addLoading()
         canvas = cropper.getCroppedCanvas({
             width: object.width || 400,
             height: object.height || 400
@@ -49,6 +55,21 @@ function crop_image(object) {
             reader.readAsDataURL(blob);
             reader.onloadend = function() {
                 var base64data = reader.result;
+                if (object.ajax) {
+                    $.post(object.url_post, { thumbnail: base64data, _token: object._token }, function(data) {
+                        // remove loading
+                        removeLoading();
+                        if (!data.status) {
+                            error_noti({ title: "Thông báo", message: data.message || "Lỗi đường truyền mạng" })
+                            return;
+                        }
+                        success_noti({ title: "Thông báo", message: data.message })
+                        $(object.producted).attr("src", data.data.thumbnail);
+                        $(object.model_preview).modal('hide');
+                    });
+                    return;
+                }
+                $(object.hidden_file).val(base64data);
                 $(object.producted).attr("src", base64data);
                 $(object.model_preview).modal('hide');
             };

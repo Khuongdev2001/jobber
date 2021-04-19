@@ -1404,6 +1404,10 @@ button:focus {
     box-shadow: 0 0 7px rgba(203, 203, 203, .23)
 }
 
+#featured .job-attractive .job-featured .content {
+    padding-left: 25px;
+}
+
 #featured .job-featured .content {
     padding-left: 90px
 }
@@ -1427,9 +1431,9 @@ button:focus {
 }
 
 #featured .job-featured .content .brand {
-    font-size: 15px;
-    margin-bottom: 10px;
-    color: #666
+    font-size: 18px;
+    color: #000;
+    flex: 0 1 100%;
 }
 
 #featured .job-featured .content .tags {
@@ -4490,12 +4494,17 @@ section .container .box-recruitment::-webkit-scrollbar-thumb {
 
 .job-detail .box-btn-action a {
     display: inline-block;
-    background: #26ae61;
+    background: #3498db;
     color: #fff;
     width: 100px;
     padding: 10px;
     text-align: center;
     border-radius: 5px;
+}
+
+.job-detail .box-btn-action a.done {
+    background: #26ae61;
+    width: 120px;
 }
 
 .job-detail .box-btn-action a:hover {
@@ -5080,6 +5089,7 @@ nav#static-result.result-search {
     box-shadow: 0px 0px 2px #c6babae6;
     padding: 5px;
     background: #fff;
+    width: 160px;
 }
 
 .box-company-detail .box-body .box-info-detail .introduce {
@@ -5294,4 +5304,108 @@ nav#static-result.result-search {
 
 .post-new .box-info-cat .desc p {
     font-style: italic;
+}
+
+.form-error .form-control {
+    border: 1px solid #e74c3c;
+}
+
+.form-error .message {
+    font-weight: bold;
+    color: #e74c3c;
+    font-size: 10px;
+}
+
+
+/* animate loading add product */
+
+.box-loading .spinner-border {
+    position: fixed;
+    z-index: 100000000000;
+    left: 50%;
+    top: 50%;
+}
+
+.box-loading .dialog {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: #464d55d6;
+    width: 100%;
+    height: 100%;
+    z-index: 10000000000;
+}
+
+.job .avatar {
+    float: left;
+    width: 52px;
+    height: 52px;
+    background-color: #ccc;
+    border-radius: 25%;
+    margin: 8px;
+    background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
+    background-size: 600px;
+    animation: shine-avatar 1.6s infinite linear;
+}
+
+.job .line {
+    float: left;
+    width: 250px;
+    height: 16px;
+    margin-top: 12px;
+    border-radius: 7px;
+    background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
+    background-size: 600px;
+    animation: shine-lines 0.5s infinite linear;
+}
+
+.job .avatar+.line {
+    margin-top: 11px;
+}
+
+.job .line~.line {
+    background-color: #ddd;
+}
+
+@keyframes shine-lines {
+    0% {
+        background-position: -100px;
+    }
+    40%,
+    100% {
+        background-position: 140px;
+    }
+}
+
+@keyframes shine-avatar {
+    0% {
+        background-position: -32px;
+    }
+    40%,
+    100% {
+        background-position: 208px;
+    }
+}
+
+.title-red .job-title {
+    color: red !important;
+    font-weight: bold;
+}
+
+.title-good .job-title::before,
+.title-hot .job-title::before {
+    content: "Uy tín";
+    display: inline-block;
+    background-size: 18px;
+    background: #2980b9;
+    color: #fff;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.title-hot .job-title::before {
+    content: "Hot";
+    background: #e74c3c;
 }

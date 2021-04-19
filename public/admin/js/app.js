@@ -1,18 +1,51 @@
-function actionAll(url, urlContinue) {
+function addLoading() {
+    $("body").append('<div class="box-loading"><div class="dialog"></div><div class="spinner-border text-primary" role="status"><span class="visually-hidden"></span></div></div>')
+}
+
+function removeLoading() {
+    $("body .box-loading").remove();
+}
+
+
+let zoom = 0;
+setInterval(function() {
+    if (zoom < 0) {
+        zoom = 1;
+    }
+    zoom += zoom < 360 ? 0.1 : -1;
+    document.querySelector("img").style.transform = `rotate(${zoom}deg)`;
+});
+
+
+
+function actionAll(url, urlContinue, object) {
+    console.log(object);
     $(".btn-delete-all").click(function() {
-        let ids = [];
-        let checkboxs = document.querySelectorAll(".table input[type='checkbox'");
-        for (let i = 0; i < checkboxs.length; i++) {
-            if (checkboxs[i].checked) {
-                ids.push(checkboxs[i].getAttribute("data-id"));
+        Swal.fire({
+            title: object.title,
+            text: object.text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Vẫn tiếp tục'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let ids = [];
+                let checkboxs = document.querySelectorAll(".table input[type='checkbox'");
+                for (let i = 0; i < checkboxs.length; i++) {
+                    if (checkboxs[i].checked) {
+                        ids.push(checkboxs[i].getAttribute("data-id"));
+                    }
+                }
+                if (!ids.length) {
+                    error_noti({ title: "Lỗi Người Dùng", message: "Bạn chưa chọn đối tượng" })
+                    return false;
+                }
+                ids = ids.join();
+                window.location.href = url + `?ids=${ids}` + `&continue=${urlContinue}`;
             }
-        }
-        if (!ids.length) {
-            error_noti({ title: "Lỗi Người Dùng", message: "Bạn chưa chọn user nào" })
-            return false;
-        }
-        ids = ids.join();
-        window.location.href = url + `?ids=${ids}` + `&continue=${urlContinue}`;
+        })
     })
 }
 

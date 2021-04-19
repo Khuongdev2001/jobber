@@ -14,10 +14,13 @@ use App\Model\Employer;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Str;
-use Yajra\DataTables\Contracts\DataTable;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(["CheckAdministrator"])->only(["updateAdmin", "block", "delete"]);
+    }
     public function login()
     {
         return view("admin.user.login");
@@ -37,6 +40,7 @@ class UserController extends Controller
             return redirect()->back()->with("error", ["title" => "Cảnh báo!", "message" => "Login thất bại"]);
         }
         session(["admin" => $user]);
+        return redirect()->route("admin.dashboard")->with("success",["title"=>"Thông báo","message"=>"Đăng nhập thành công"]);
     }
 
     public function indexAdmin()
@@ -61,9 +65,9 @@ class UserController extends Controller
                         <input class="form-check-input" type="checkbox" value="" data-id="' . $user->User_ID . '">
                     </div>';
             })
-            ->editColumn("User_Created_At", function ($user) {
-                return date("Y-m-d", $user->User_Created_At);
-            })
+            // ->editColumn("User_Created_At", function ($user) {
+            //     return date("Y-m-d", $user->User_Created_At);
+            // })
             ->editColumn("Level", function ($user) {
                 $convert = [
                     "name" => [
@@ -110,6 +114,7 @@ class UserController extends Controller
     {
         $user = $request->validated();
         $user["User_Password"] = Hash::make($user["User_Password"]);
+        $user["User_Created_At"] = time();
         User::create($user);
         return redirect()->back()->with("success", ["title" => "Thông báo", "message" => "Thêm tài khoản thành công"]);
     }
@@ -148,6 +153,8 @@ class UserController extends Controller
             $userUpdate = $user;
         }
         User::find($id)->update($userUpdate);
+        // update info admin
+        User::updateSessionAdmin($id);
         return redirect()->route("admin.user.admin")->with("success", ["title" => "Thông báo", "message" => "Cập nhật thành công tài khoản"]);
     }
 
@@ -179,11 +186,15 @@ class UserController extends Controller
         file_put_contents("public/" . $file, base64_decode($dataImage[1]));
         $user->Avatar = $file;
         $user->save();
+        // update session
+        User::updateSessionAdmin($id);
         return $this->response(200, ["thumbnail" => asset($file)], "Cập nhật ảnh thành công !");
     }
 
     public function delete(Request $request)
     {
+        return redirect($request->continue)->with("success", ["title" => "Thông báo", "message" => "Chức năng bị khóa"]);
+
         $ids = $request->ids;
         $numFile = 0;
         foreach (explode(",", $ids) as $id) {
@@ -223,9 +234,9 @@ class UserController extends Controller
                     <input class="form-check-input" type="checkbox" value="" data-id="' . $user->User_ID . '">
                 </div>';
             })
-            ->editColumn("User_Created_At", function ($user) {
-                return date("Y-m-d", $user->User_Created_At);
-            })
+            // ->editColumn("User_Created_At", function ($user) {
+            //     return date("Y-m-d", $user->User_Created_At);
+            // })
             ->editColumn("Type_Login", function ($user) {
                 $convert = [
                     "name" => [
@@ -287,7 +298,7 @@ class UserController extends Controller
 
     public function getIndexEmployer()
     {
-        $users = User::whereIn("Level", [2])->get();
+        $users = User::whereIn("Level", [2])->orderBy("User_Created_At", "desc")->get();
         return DataTables::of($users)
             ->editColumn("Avatar", function ($user) {
                 $url = empty($user->Avatar) ? 'admin/images/avatars/default.jpg' : $user->Avatar;
@@ -302,9 +313,9 @@ class UserController extends Controller
                     <input class="form-check-input" type="checkbox" value="" data-id="' . $user->User_ID . '">
                 </div>';
             })
-            ->editColumn("User_Created_At", function ($user) {
-                return date("Y-m-d", $user->User_Created_At);
-            })
+            // ->editColumn("User_Created_At", function ($user) {
+            //     return date("Y-m-d", $user->User_Created_At);
+            // })
             ->addColumn("action", function ($user) {
                 $convert = [
                     [
@@ -327,15 +338,22 @@ class UserController extends Controller
                     '<a href="' . route("admin.user.employer.block", ["id" => $user->User_ID, 'status' => $user->Is_Block, "continue" => route("admin.user.employer")]) . '" class="btn-hero shadow btn-block ' . $convert[$user->Is_Block]["class"] . '" admin-id=' . $user->User_ID . ' data-bs-toggle="tooltip" title="' . $convert[$user->Is_Block]["title"] . '">' . $convert[$user->Is_Block]["icon"] . '</a>
                      <a href="' . route("admin.user.employer.info", ["email" => $user->User_Email]) . '" class="btn-hero btn-info-hero shadow" data-bs-toggle="tooltip" admin-id=' . $user->User_ID . ' title="Cập nhật tài khoản"><i class="fas fa-pen"></i></a>
                      <a href="?module=employer&action=package" class="btn-hero btn-info-hero shadow" data-bs-toggle="tooltip" title="xem gói dịch vụ"><i class="fas fa-cube"></i></a>
-                     <a href="' . route("admin.user.candidate.delete", ["ids" => $user->User_ID, "continue" => route("admin.user.candidate")]) . '" class="btn-hero btn-danger-hero shadow btn-delete" admin-id=' . $user->User_ID . ' data-bs-toggle="tooltip" title="Xóa tài khoản"><i class="fas fa-trash-alt"></i></a>';
+                     <a href="' . route("admin.user.employer.delete", ["ids" => $user->User_ID, "continue" => route("admin.user.employer")]) . '" class="btn-hero btn-danger-hero shadow btn-delete" admin-id=' . $user->User_ID . ' data-bs-toggle="tooltip" title="Xóa tài khoản"><i class="fas fa-trash-alt"></i></a>';
             })
             ->rawColumns(["action", "Avatar", "check", "Type_Login"])
             ->make(true);
     }
 
-    public function infoEmployer($email){
-        
-        $user = Employer::select(["users.User_ID", "employers.Employer_ID", "Fullname", "User_Email", "Avatar", "Gender", "Phone", "Birthday", "Specialize_ID", "Regency","Company_Name","Company_Phone","Company_Address","Business_License","Company_Provinces","Company_Size","Company_Contactor","Company_Email","Company_Website","Company_Description","Company_Logo","Company_Cover","Company_Is_Confirm"])->leftJoin('users', 'users.User_ID', '=', 'employers.User_ID')->where("User_Email", $email)->first();
-        return view("admin.user.employer.info",compact("user"));
+    public function infoEmployer($email)
+    {
+
+        $user = Employer::select(["users.User_ID", "employers.Employer_ID", "Fullname", "User_Email", "Avatar", "Gender", "Phone", "Birthday", "Specialize_ID", "Regency", "Company_Name", "Company_Phone", "Company_Address", "Business_License", "Company_Provinces", "Company_Size", "Company_Contactor", "Company_Email", "Company_Website", "Company_Description", "Company_Logo", "Company_Cover", "Company_Is_Confirm"])->leftJoin('users', 'users.User_ID', '=', 'employers.User_ID')->where("User_Email", $email)->first();
+        return view("admin.user.employer.info", compact("user"));
+    }
+
+    public function confirmCompany($companyID)
+    {
+        Employer::find($companyID)->update(["Company_Is_Confirm" => 1]);
+        return redirect()->route("admin.user.employer")->with("success", ["title" => "Thông báo", "message" => "Xác nhận doanh nghiệm thành công!"]);
     }
 }

@@ -29,11 +29,10 @@ class CreateUsersTable extends Migration
             $table->boolean("User_Active")->default(false)->nullable();
             $table->string("Re_Sendmail", 255)->nullable();
             // timestamp
-            $table->string("User_Created_At", 255)->nullable();
-            $table->string("User_Updated_At", 255)->nullable();
+            $table->timestamp("User_Created_At")->nullable();
+            $table->timestamp("User_Updated_At")->nullable();
         });
     }
-
     /**
      * Reverse the migrations.
      *

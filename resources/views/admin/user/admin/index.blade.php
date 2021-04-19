@@ -48,7 +48,7 @@
         return false;
     })
 
-    actionAll("{{route('admin.user.admin.delete')}}","{{route('admin.user.admin')}}");
+    actionAll("{{route('admin.user.admin.delete')}}","{{route('admin.user.admin')}}",{title:"Thông báo",text:"Bạn muốn xóa Admin đã chọn"});
 
     </script>
 @endsection()

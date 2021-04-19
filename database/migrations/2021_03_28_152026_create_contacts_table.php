@@ -17,10 +17,12 @@ class CreateContactsTable extends Migration
             $table->id("Contact_ID");
             $table->string("Phone", 255)->nullable();
             $table->integer("Type");
-            $table->unsignedBigInteger("User_ID");
-            $table->foreign("User_ID")->references("User_ID")->on("users")->onDelete("cascade");
-            $table->string("Created_At",255)->nullable();
-            $table->string("Updated_At",255)->nullable();
+            $table->unsignedBigInteger("User_ID")->nullable();
+            $table->foreign("User_ID")->references("User_ID")->on("users");
+            $table->boolean("Is_Block")->nullable()->default(false);
+            $table->date("Created_At")->nullable();
+            $table->date("Updated_At")->nullable();
+            $table->date("Deleted_At")->nullable();
         });
     }
 

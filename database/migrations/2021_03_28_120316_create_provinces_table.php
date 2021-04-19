@@ -17,8 +17,8 @@ class CreateProvincesTable extends Migration
             $table->id("Province_ID");
             $table->string("Province_Name", 255)->nullable();
             $table->string("Province_Code", 255)->nullable();
-            $table->string("Province_Created_At", 255)->nullable();
-            $table->string("Province_Updated_At", 255)->nullable();
+            $table->timestamp("Province_Created_At")->nullable();
+            $table->timestamp("Province_Updated_At")->nullable();
         });
     }
 

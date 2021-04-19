@@ -15,13 +15,13 @@ class CreateJobSavesTable extends Migration
     {
         Schema::create('job_saves', function (Blueprint $table) {
             $table->id("ID");
-            $table->unsignedBigInteger("User_ID");
-            $table->foreign("User_ID")->references("User_ID")->on("users")->onDelete("cascade");
+            $table->unsignedBigInteger("Candidate_ID");
+            $table->foreign("Candidate_ID")->references("Candidate_ID")->on("candidates")->onDelete("cascade");
             $table->unsignedBigInteger("Job_ID");
             $table->foreign("Job_ID")->references("Job_ID")->on("jobs")->onDelete("cascade");
             $table->integer("Status")->nullable();
-            $table->string("Created_At", 255)->nullable();
-            $table->string("Updated_At", 255)->nullable();
+            $table->timestamp("Created_At")->nullable();
+            $table->timestamp("Updated_At")->nullable();
         });
     }
 

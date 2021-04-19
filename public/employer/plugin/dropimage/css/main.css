@@ -1,8 +1,0 @@
-.preview_avatar_mini,
-.preview_banner_mini {
-    overflow: hidden;
-    width: 160px;
-    height: 160px;
-    margin: 10px;
-    border: 1px solid red;
-}

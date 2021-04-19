@@ -12,6 +12,9 @@
     <link href="{{ asset("admin/css/pace.min.css") }}" rel="stylesheet" />
     <script src="{{ asset("admin/js/pace.min.js") }}"></script>
 
+    {{-- simplebar --}}
+    <link rel="stylesheet" href="{{ asset("admin/plugins/simplebar/css/simplebar.css") }}">
+
     <link href="{{ asset("admin/plugins/metismenu/css/metisMenu.min.css")}} " rel="stylesheet" />
     {{-- bootstrap --}}
     <link href="https://codervent.com/dashtreme/demo/vertical/assets/css/bootstrap.min.css" rel="stylesheet">
@@ -44,42 +47,42 @@
                 </div>
                 <!--navigation-->
                 <ul class="metismenu" id="menu">
-                    <li>
-                        <a href="?module=dashboard&action=index">
+                    <li class="{{ setMenuActive("admin.dashboard","admin") }}">
+                        <a class="" href="{{ route("admin.dashboard") }}">
                             <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
                             <div class="menu-title">Dashboard</div>
                         </a>
                     </li>
                     <li>
-                        <a href="?module=message&action=index">
+                        <a>
                             <div class="parent-icon"><i class="fab fa-facebook-messenger"></i></div>
-                            <div class="menu-title">Tin nhắn</div>
+                            <div class="menu-title">Tin nhắn(Chưa làm)</div>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{ setMenuActive("admin.employer.service","admin")}}">
                         <a href="javascript:;" class="has-arrow">
                             <div class="parent-icon"><i class="bx bx-category"></i></div>
                             <div class="menu-title">Dịch vụ</div>
                         </a>
                         <ul>
                             <li>
-                                <a href="?module=service&action=package"><i class="bx bx-right-arrow-alt"></i>Giao dịch gói</a>
+                                <a href="{{ route("admin.employer.service") }}"><i class="bx bx-right-arrow-alt"></i>Giao dịch gói</a>
                             </li>
                             <li>
-                                <a href="?module=service&action=recruitment"><i class="bx bx-right-arrow-alt"></i>Tin tuyển dụng</a>
+                                <a href="{{ route("admin.employer.job") }}"><i class="bx bx-right-arrow-alt"></i>Tin tuyển dụng</a>
                             </li>
                         </ul>
                     </li>
 
                     <!-- menu user -->
                     <li class="menu-label">Quản trị thành viên</li>
-                    <li>
+                    <li class="">
                         <a class="has-arrow" href="javascript:;">
                             <div class="parent-icon"><i class='bx bx-message-square-edit'></i></div>
                             <div class="menu-title">Ứng viên</div>
                         </a>
                         <ul>
-                            <li>
+                            <li class="{{ setMenuActive("admin.user.candidate","admin") }}">
                                 <a href="{{ route("admin.user.candidate") }}"><i class="bx bx-right-arrow-alt"></i>Danh sách ứng viên</a>
                             </li>
                         </ul>
@@ -91,7 +94,7 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="?module=user&action=employer"><i class="bx bx-right-arrow-alt"></i>Danh sách nhà tuyển dụng</a>
+                                <a href="{{ route("admin.user.employer") }}"><i class="bx bx-right-arrow-alt"></i>Danh sách nhà tuyển dụng</a>
                             </li>
                             <li>
                                 <a href="?module=employer&action=recruitment"><i class="bx bx-right-arrow-alt"></i>Quản trị tin đăng nhà tuyển dụng</a>
@@ -122,17 +125,16 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="?module=post&action=add-post"><i class="bx bx-right-arrow-alt"></i>Thêm bài viết</a>
+                                <a href="{{ route("admin.post.add") }}"><i class="bx bx-right-arrow-alt"></i>Thêm bài viết</a>
                             </li>
                             <li>
-                                <a href="?module=post&action=cat"><i class="bx bx-right-arrow-alt"></i>Danh mục</a>
+                                <a href="{{ route("admin.post.cat") }}"><i class="bx bx-right-arrow-alt"></i>Danh mục</a>
                             </li>
                             <li>
-                                <a href="?module=post"><i class="bx bx-right-arrow-alt"></i>Bài viết</a>
+                                <a href="{{ route("admin.post") }}"><i class="bx bx-right-arrow-alt"></i>Bài viết</a>
                             </li>
                         </ul>
                     </li>
-
                     <li class="menu-label">Tuyển dụng</li>
                     <li>
                         <a class="has-arrow" href="javascript:;">
@@ -140,62 +142,12 @@
                             <div class="menu-title">Cấu hình</div>
                         </a>
                         <ul>
-                            <li> <a href="javascript:void(0)"><i class="bx bx-right-arrow-alt"></i>Gói cước</a>
-                                <ul>
-                                    <li>
-                                        <a href="?module=recruitment&action=package"><i class="bx bx-right-arrow-alt"></i>Thêm gói</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li> <a href="javascript:void(0)"><i class="bx bx-right-arrow-alt"></i>Nghành </a>
-                                <ul>
-                                    <li>
-                                        <a href="?module=recruitment&action=specialize"><i class="bx bx-right-arrow-alt"></i>Danh sách nghành</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="javascipt:void(0)"><i class="bx bx-right-arrow-alt"></i>Chung</a>
-                                <ul>
-                                    <li>
-                                        <a href="?module=recruitment&action=package"><i class="bx bx-right-arrow-alt"></i>Thêm gói</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="?module=recruitment&action=contact"><i class="bx bx-right-arrow-alt"></i>Liên hệ</a>
+                            <li class="{{ setMenuActive("admin.package.config","admin") }}">
+                                <a href="{{ route("admin.package.config") }}"><i class="bx bx-right-arrow-alt"></i>Cấu hình gói</a>
                             </li>
                         </ul>
                     </li>
-
-                    <!-- advertisement -->
-                    <li class="menu-label">Quảng cáo</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:;">
-                            <div class="parent-icon"><i class="bx bx-lock"></i></div>
-                            <div class="menu-title">Khối giao diện</div>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)" class="has-arrow"><i class="bx bx-right-arrow-alt"></i>Ứng viên</a>
-                                <ul>
-                                    <li>
-                                        <a href="?module=advertisement&action=candidate-home">Trang chủ</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="?module=post&action=cat"><i class="bx bx-right-arrow-alt"></i>Danh mục</a>
-                            </li>
-                            <li>
-                                <a href="?module=post"><i class="bx bx-right-arrow-alt"></i>Bài viết</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- end advertisement -->
+                 
                 </ul>
                 <!--end navigation-->
             </div>
@@ -538,7 +490,7 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{{ route("admin.user.admin.info",session("admin.User_Email")) }}"><i class="bx bx-user"></i><span>Thông tin</span></a>
+                                <li><a class="dropdown-item" href="{{ route("admin.user.admin.info",session("admin.User_Email") ?? "no email") }}"><i class="bx bx-user"></i><span>Thông tin</span></a>
                                 </li>
                             </ul>
                         </div>
